@@ -1,0 +1,49 @@
+@import "../_variables"
+
+.wrapper
+    background darken(#035, 3)
+    width 100%
+    height 100%
+    margin 0
+    padding 0
+    overflow hidden
+    color white
+    h1, h2
+        font-weight 100
+    h1
+        padding 10px 0 0 30px
+    h2
+        margin 0
+        padding 0 0 25px 30px
+        color rgba(white, 0.8)
+
+.link
+    &, &:visited, &:link, &:active
+        color inherit
+        padding 0 5px
+        font-size 1.1em
+        text-decoration none
+        transition color 0.5s mdtiming
+        &:hover
+            color white
+.div
+    opacity 0.5
+
+.description
+    padding 15px
+    bstyle=solid 1px rgba(white, 0.1)
+    background rgba(white, 0.05)
+    border-top bstyle
+    border-bottom bstyle
+    margin-bottom 50px
+
+    .inner
+        max-width 800px
+
+    font-weight 100 !important
+    a, a:link, a:visited, a:active
+        color inherit
+        text-transform none
+        transition color 0.5s ease-in-out
+        &:hover
+            color white

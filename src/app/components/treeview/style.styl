@@ -1,0 +1,68 @@
+@import "../_variables"
+@import "~nib/index.styl"
+
+pad=15px
+swhite=rgba(white, 0.1)
+bstyle=solid 1px swhite
+
+.header
+    display block
+    width 100%
+    padding pad
+    color white
+    text-transform capitalize
+    transition background 0.5s mdtiming
+    cursor pointer
+    &:hover
+        background rgba(swhite, 0.05)
+    &.listitem
+        border-left bstyle
+        border-bottom bstyle
+        padding 0
+        &:last-child
+            border-bottom none
+    .icon
+        margin (0 - pad) pad (0 - pad) (0 - pad)
+        display inline-block
+        height 100%
+        padding pad
+        border-right bstyle
+        background rgba(swhite, 0.05)
+    .text
+        margin (0 - pad)
+        padding pad
+
+span.listitem
+    padding pad
+    display block
+
+.list
+    display block
+    width 100%
+    transition all 1s mdtiming
+    overflow hidden
+    height auto
+    margin 0
+    padding 0
+    border-top bstyle
+    background-color #035
+    &.active
+        transform none
+        opacity 1
+    &.inactive
+        height 0 !important
+        transform translateX(-10%)
+        opacity 0
+    .list
+        padding-left (pad*2)
+
+:global(.first):local(.list)
+        .header.listitem:last-child
+            border-bottom bstyle
+        > li
+            margin-left 15px !important
+
+.link
+    &, &:link, &:visited, &:active
+        color inherit
+        text-decoration none

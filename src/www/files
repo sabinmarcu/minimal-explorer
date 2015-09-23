@@ -1,0 +1,16 @@
+chrome
+chrome/bootstrap.js
+chrome/chrome.js
+chrome/icons
+chrome/icons/_noindex
+chrome/icons/fullscreen-exit.png
+chrome/icons/fullscreen.png
+chrome/icons/window-close.png
+chrome/icons/window-maximize.png
+chrome/icons/window-minimize.png
+chrome/icons/window-restore.png
+chrome/index.html
+comments.json
+index.html
+main.css
+manifest.json
