@@ -2,6 +2,8 @@
 topmargin=30px
 listmargin=topmargin 10px 0
 headerh=35px
+minw=250px
+marg=10px
 
 .biglink
     position absolute
@@ -13,13 +15,13 @@ headerh=35px
 
 .item
     pad=25px
-    flex 1 1 250px
-    min-width 150px
+    flex 1 1 minw
+    min-width minw
     background white
     box-shadow 0 3px 6px rgba(black, 0.1)
     border-radius 4px
     list-style none
-    margin 10px
+    margin marg
     transition all 2s mdtiming, box-shadow 1s mdtiming
     position relative
     min-height (headerh * 3)
@@ -80,17 +82,19 @@ headerh=35px
     &.file, &.readme
         .smallcontent
             bottom 0
-    &.file .smallcontent 
+    &.file .smallcontent
         color #aaa
         transition color 0.5s mdtiming
         &:hover
             color #666
-    &.readme .smallcontent
-        display block
-        position static
-        margin-top headerh
-        overflow hidden
-        .hidden
-            display none
-        .readmeContent
-            padding 15px
+    &.readme
+        flex 2 2 (minw * 2 + marg * 2)
+        .smallcontent
+            display block
+            position static
+            margin-top headerh
+            overflow hidden
+            .hidden
+                display none
+            .readmeContent
+                padding 15px

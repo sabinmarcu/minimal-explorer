@@ -30,6 +30,43 @@
     const reducer = combineReducers( reducers );
     const store = createStore(reducer);
 
+
+    let meta;
+    meta = document.createElement("meta");
+    meta.setAttribute("name", "viewport");
+    meta.setAttribute("content", "height=device-height, width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1");
+    document.head.appendChild(meta);
+
+    meta = document.createElement("link");
+    meta.setAttribute("rel", "apple-touch-icon");
+    meta.setAttribute("href", "512.png");
+    document.head.appendChild(meta);
+    meta = document.createElement("link");
+    meta.setAttribute("rel", "apple-touch-icon");
+    meta.setAttribute("sizes", "152x152");
+    meta.setAttribute("href", "152.png");
+    document.head.appendChild(meta);
+    meta = document.createElement("link");
+    meta.setAttribute("rel", "apple-touch-icon");
+    meta.setAttribute("sizes", "120x120");
+    meta.setAttribute("href", "120.png");
+    document.head.appendChild(meta);
+    meta = document.createElement("link");
+    meta.setAttribute("rel", "apple-touch-icon");
+    meta.setAttribute("sizes", "76x76");
+    meta.setAttribute("href", "76.png");
+    document.head.appendChild(meta);
+
+    meta = document.createElement("meta");
+    meta.setAttribute("name", "apple-mobile-web-app-capable");
+    meta.setAttribute("content", "yes");
+    document.head.appendChild(meta);
+
+    meta = document.createElement("link");
+    meta.setAttribute("rel", "icon");
+    meta.setAttribute("href", "icon.ico");
+    document.head.appendChild(meta);
+
     document.title = __NAME__;
 
     // Mount the app and dev tools
