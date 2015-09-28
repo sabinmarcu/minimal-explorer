@@ -15,10 +15,14 @@ class Util {
     // Can be a lot more useful if they're refractored and abstracted to be used by both actions and reducers
 
     static getFiles(cb) {
-        jQuery.get(window.location + "files", cb);
+        jQuery.get(__BASEURL__ + "files", cb);
     }
-    static getDescription(cb) {
-        jQuery.get(window.location + "readme.md", cb);
+    static getDescription(cb, prefix = window.location) {
+        jQuery.get(Util.suffixSlash(prefix) + "readme.md", cb);
+    }
+    static suffixSlash(str) {
+        str = str + "";
+        return str[str.length - 1] === "/" ? str : str + "/";
     }
 
     static *entries(obj) {
@@ -143,7 +147,7 @@ class Util {
             if ((typeof descriptor.get) !== "undefined") {
                 newdesc.get = descriptor.get.bind(owner);
             }
-            if ((typeof descriptor.get) !== "undefined") {
+            if ((typeof descriptor.set) !== "undefined") {
                 newdesc.set = descriptor.set.bind(owner);
             }
             Object.defineProperty(ret, k, newdesc);

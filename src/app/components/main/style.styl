@@ -1,49 +1,56 @@
 @import "../_variables"
 
 .wrapper
-    background darken(#035, 3)
+    background #ddd
+    position relative
     width 100%
     height 100%
-    margin 0
-    padding 0
     overflow hidden
-    color white
-    h1, h2
-        font-weight 100
-    h1
-        padding 10px 0 0 30px
-    h2
-        margin 0
-        padding 0 0 25px 30px
-        color rgba(white, 0.8)
 
-.link
-    &, &:visited, &:link, &:active
-        color inherit
-        padding 0 5px
-        font-size 1.1em
+.header
+    position absolute
+    top 0
+    left 0
+    right 0
+    height headerheight
+    display flex
+    flex-flow row wrap
+    box-shadow 0 6px 12px rgba(0, 0, 0, 0.2)
+    background white
+    z-index 9
+    border-bottom solid 1px rgba(black, 0.3)
+    h1, h2
+        padding 0
+        margin 0
+        text-indent 25px
+        font-weight 100
+        color #888
+        font-size 10pt
+    h1
+        flex 2 2 100%
+        display flex
+        align-items center
+        font-size 20pt
+        height 60%
+    h2
+        flex 1 1 100%
+        padding-bottom 5px
+        color #aaa
+    a, a:link, a:visited, a:active
+        color #aaa
         text-decoration none
         transition color 0.5s mdtiming
         &:hover
-            color white
+            color black
+
 .div
-    opacity 0.5
+    margin 0 5px
 
-.description
-    padding 15px
-    bstyle=solid 1px rgba(white, 0.1)
-    background rgba(white, 0.05)
-    border-top bstyle
-    border-bottom bstyle
-    margin-bottom 50px
-
-    .inner
-        max-width 800px
-
-    font-weight 100 !important
-    a, a:link, a:visited, a:active
-        color inherit
-        text-transform none
-        transition color 0.5s ease-in-out
-        &:hover
-            color white
+.content
+    position absolute
+    top headerheight
+    left 0
+    bottom 0
+    right 0
+    overflow-x hidden
+    overflow-y auto
