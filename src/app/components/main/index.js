@@ -3,11 +3,12 @@ import EnhancedComponent from "../baseComponent";
 import { connect }  from "react-redux";
 import Util from "../../helpers/util";
 import _ from "underscore";
+import marked from "marked";
 
 @connect((state) => {
     return {
         files: state.main.rawfiles,
-        description: state.main.description,
+        descriptions: state.main.descriptions,
     }
 })
 export default class Main extends EnhancedComponent {
@@ -35,7 +36,7 @@ export default class Main extends EnhancedComponent {
             });
         });
         Util.getDescription((file) =>
-            this.props.dispatch(Util.actions.main.addRootDescription(file))
+            this.props.dispatch(Util.actions.main.addDescription(marked(file), "ROOT"))
         );
     }
 

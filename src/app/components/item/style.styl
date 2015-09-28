@@ -1,0 +1,96 @@
+@import "../_variables"
+topmargin=30px
+listmargin=topmargin 10px 0
+headerh=35px
+
+.biglink
+    position absolute
+    top 0
+    bottom 0
+    left 0
+    right 0
+    z-index 10
+
+.item
+    pad=25px
+    flex 1 1 250px
+    min-width 150px
+    background white
+    box-shadow 0 3px 6px rgba(black, 0.1)
+    border-radius 4px
+    list-style none
+    margin 10px
+    transition all 2s mdtiming, box-shadow 1s mdtiming
+    position relative
+    min-height (headerh * 3)
+    overflow hidden
+    color #444
+    opacity 0
+    transform translateX(50px)
+    &:hover
+        box-shadow 0 6px 12px rgba(black, 0.2)
+    &.active
+        width 100%
+        height s("calc(%s - %s)", hundred, (pad * 2 - topmargin))
+        max-width initial
+        margin -30px -10px 0
+        flex 2 2 100%
+    &.inactive
+        width 0
+        height 0
+        padding 0
+        margin 0
+        overflow hidden
+        flex 0 0 0
+        min-height 0
+    .header, .footer
+        position absolute
+        top 0
+        left 0
+        right 0
+        height headerh
+        line-height headerh
+        text-indent 15px
+        box-shadow 0 2px 4px rgba(black, 0.05)
+        text-transform capitalize
+    .footer
+        box-shadow none
+        top auto
+        bottom 0
+    .smallcontent
+        position absolute
+        top headerh
+        bottom headerh
+        left 0
+        right 0
+        display flex
+        align-items center
+        justify-content center
+    a, a:link, a:visited, a:active
+        color #aaa
+        text-decoration none
+        transition color 0.5s mdtiming
+        &:hover
+            color #666
+    .hint
+        display flex
+        margin 0
+        padding 0
+        font-weight 100
+    &.file, &.readme
+        .smallcontent
+            bottom 0
+    &.file .smallcontent 
+        color #aaa
+        transition color 0.5s mdtiming
+        &:hover
+            color #666
+    &.readme .smallcontent
+        display block
+        position static
+        margin-top headerh
+        overflow hidden
+        .hidden
+            display none
+        .readmeContent
+            padding 15px

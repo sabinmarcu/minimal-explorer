@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React from "react";
 import { extend, bindAll } from "../helpers/util";
 
 import baseStyles from "./_baseStyles.styl";
@@ -15,7 +15,7 @@ const _extend = (owner, file, req, bind = true) => {
     }
 }
 
-export default class EnhancedComponent extends Component {
+export default class EnhancedComponent extends React.Component {
     constructor(ctx = require, ...args) {
         super(...args);
         _extend(this, "view", ctx);

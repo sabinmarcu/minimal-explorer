@@ -1,6 +1,6 @@
 import React from "react";
 import marked from "marked";
-import ItemsList from "../ItemsList";
+import ItemsList from "../itemslist";
 
 export default {
     render() {
@@ -25,7 +25,7 @@ export default {
                 </h2>
             </header>
             <section className={this.styles.content}>
-                <ItemsList items={this.props.files} />
+                <ItemsList items={this.props.files} index="ROOT"/>
             </section>
         </div>;
     },
