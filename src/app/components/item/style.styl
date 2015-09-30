@@ -1,4 +1,6 @@
 @import "../_variables"
+@import "./typography"
+
 topmargin=30px
 listmargin=topmargin 10px 0
 headerh=35px
@@ -72,6 +74,8 @@ marg=10px
             overflow hidden
             .hidden
                 display none
+    &.primereadme
+        flex 3 3 (minw * 4 + marg * 4)
 
 .header, .footer
     position absolute
@@ -103,15 +107,13 @@ marg=10px
     padding 15px
 
 .bigcontent
-    display block
     position static
     margin headerh 0
     padding 0 10px 10px
     overflow hidden
 
 .hint
-    display flex
-    margin 0
+    margin 15px 0
     padding 0
     font-weight 100
 

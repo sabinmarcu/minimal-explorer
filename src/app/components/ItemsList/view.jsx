@@ -22,7 +22,7 @@ export default {
             <Item file={item} content={this.props.items[item]} folder={this.views.isFolder(item)} style={{transitionDelay: index * delay + "ms", opacity: 1, transform: "none"}} readme={this.views.getReadme(item) || null} select={this.select} link={this.link}/>
         );
         if (children && this.props.index && this.props.descriptions[this.props.index]) {
-            children.unshift(<Item file="Readme" readme={this.props.descriptions[this.props.index]} style={{transitionDelay: "0ms", opacity: 1, transform: "none"}} />);
+            children.unshift(<Item file="Readme" readme={this.props.descriptions[this.props.index]} style={{transitionDelay: "0ms", opacity: 1, transform: "none"}} isPrimeReadme={true} />);
         }
         if (this.props.backButton) {
             children.unshift(<div className={this.styles.backButton} onClick={

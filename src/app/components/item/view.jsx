@@ -11,6 +11,9 @@ export default class Views {
         let cls = [this.styles.item];
         if (check.string(this.props.readme)) {
             cls.push(this.styles.readme);
+            if (this.props.isPrimeReadme) {
+                cls.push(this.styles.primereadme);
+            }
         } else {
             if (check.string(this.props.content)) {
                 cls.push(this.styles.file);
@@ -27,7 +30,7 @@ export default class Views {
         </span>;
     }
     static get folderContent() {
-        return <h1>This is a folder. Use the buttons on the bottom of this card to access its content</h1>;
+        return <h1 className={this.styles.hint}>This is a folder. Use the buttons on the bottom of this card to access its content</h1>;
     }
     static get readmeIcon() {
         return this.views.icon("file-find", this.props.expand || function() {}, "View Readme");
