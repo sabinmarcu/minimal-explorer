@@ -2,46 +2,110 @@ import React from "react";
 import check from "check-types";
 import Util from "../../helpers/util";
 import marked from "marked";
+import Ink from "react-ink";
 
-export default {
-    smallTile(item, children, next = <span />) {
-        return <span>
-            <header className={this.styles.header}>
-                <a href={Util.suffixSlash(window.location) + item}>
-                    {check.string(children) ? children : item}
-                </a>
-            </header>
-            <section className={this.styles.smallcontent}>
-                {next}
-            </section>
+export default class Views {
+
+    // Helpers
+    static get classes() {
+        let cls = [this.styles.item];
+        if (check.string(this.props.readme)) {
+            cls.push(this.styles.readme);
+        } else {
+            if (check.string(this.props.content)) {
+                cls.push(this.styles.file);
+            }
+        }
+        return cls.join(" ");
+    }
+    static get openContent() {
+        return this.views.link(<h1 className={this.styles.hint}>Click here to open</h1>);
+    }
+    static get readmeContent() {
+        return <span className={this.styles.readmeContent} dangerouslySetInnerHTML={
+                {__html: this.props.readme}}>
         </span>;
-    },
-    bigTile(item, children) {
-        return <h1> TBD </h1>;
-    },
-    fileLayout(item, children) {
-        return <li className={this.styles.item + " " + this.styles.file} style={this.props.style || {}}>
-            <a href={Util.suffixSlash(window.location) + item} className={this.styles.biglink}>
-                {this.views.smallTile(item, children, <h1 className={this.styles.hint}>Click here to open</h1>)}
-            </a>
+    }
+    static get folderContent() {
+        return <h1>This is a folder. Use the buttons on the bottom of this card to access its content</h1>;
+    }
+    static get readmeIcon() {
+        return this.views.icon("file-find", this.props.expand || function() {}, "View Readme");
+    }
+    static get navigateIcon() {
+        return this.views.icon("view-list", this.props.select || function() {}, "View folder contents");
+    }
+    static get linkIcon() {
+        return this.views.icon("link", this.props.link || function() {}, "Go to this folder");
+    }
+
+    // Partials
+    static sectionContent(inner, file = true) {
+        return <section className={file ? this.styles.smallcontent : this.styles.bigcontent}>
+            {inner}
+        </section>;
+    }
+    static headerContent(inner) {
+        return <header className={this.styles.header}>
+            {this.views.link(inner)}
+        </header>;
+    }
+    static footerContent(inner) {
+        return <footer className={this.styles.footer}>
+            {inner}
+        </footer>;
+    }
+    static icon(what, cb, tooltip) {
+        return <div className={`${this.styles.icon}`} onClick={() => cb(this.props.file)}>
+            <span className={`mdi mdi-${what}`}/>
+            {tooltip && <div className={this.styles.tooltip}>{tooltip}</div>}
+            <Ink />
+        </div>
+    }
+    static link(inner) {
+        return <a onClick={() => this.props.link(this.props.file)} >
+            {inner}
+        </a>;
+    }
+
+    //Layouts
+    static get smallLayout() {
+        return [
+            this.views.headerContent(check.string(this.props.content) ?
+                this.props.content :
+                this.props.file
+            ),
+            this.views.sectionContent(check.string(this.props.readme) ?
+                this.views.readmeContent :
+                this.views.openContent
+            ),
+        ];
+    }
+    static get bigLayout() {
+        return [
+            this.views.headerContent(check.string(this.props.content) ?
+                this.props.content :
+                this.props.file
+            ),
+            this.views.sectionContent(check.string(this.props.readme) ?
+                this.views.readmeContent :
+                this.views.folderContent
+            , false),
+            this.views.footerContent([
+                (check.string(this.props.readme) && this.views.readmeIcon),
+                this.views.navigateIcon,
+                this.views.linkIcon,
+            ]),
+        ];
+    }
+    static get layout() {
+        return <li className={this.views.classes} style={this.props.style || {}}>
+            {this.props.folder ? this.views.bigLayout : this.views.smallLayout}
         </li>;
-    },
-    readmeLayout(item, readme) {
-        return <li className={this.styles.item + " " + this.styles.readme} style={this.props.style || {}}>
-            {this.views.smallTile("readme.md", "Readme", <p className={this.styles.readmeContent} dangerouslySetInnerHTML={{__html: this.props.readme}}></p>)}
-        </li>;
-    },
-    folderLayout(item, children) {
-        return <li className={this.styles.item} style={this.props.style || {}}>
-            {this.views.smallTile(item, children)}
-        </li>;
-    },
-    render() {
-        return check.string(this.props.readme) ?
-            this.views.readmeLayout(this.props.file, this.props.readme) :
-            (check.string(this.props.content) ?
-                this.views.fileLayout(this.props.file, this.props.content) :
-                this.views.folderLayout(this.props.file, this.props.content)
-            );
-    },
+    }
+
+    // Putting it all together
+    static render() {
+        return this.views.layout;
+    }
 };

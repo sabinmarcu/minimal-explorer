@@ -2,7 +2,42 @@ import React from "react";
 import marked from "marked";
 import ItemsList from "../itemslist";
 
+const opacity = 0.2, blur = 3, translate = 150, rotate = 10, transTime = 1, transFunc = "cubic-bezier(0.165, 0.840, 0.440, 1.000)";
+
 export default {
+    paneStyle(folder, focus, folders) {
+        let dist = this.distanceTo(folder, focus, folders);
+        if (dist < 0) {
+            return {
+                opacity: 0,
+                filter: "10px",
+                WebkitFilter: "10px",
+                transform: `translateZ(${translate}px) rotateX(${rotate}deg)`,
+                zIndex: -1,
+                transition: `all ${transTime}s ${transFunc}`,
+            }
+        } else {
+            if (dist > 0) {
+                return {
+                    opacity: 0.7 - (dist * opacity < 1 ? dist * opacity : 1),
+                    filter: `blur(${dist * blur}px)`,
+                    WebkitFilter: `blur(${dist * blur}px)`,
+                    transform: `translateZ(-${dist * translate}px) rotateX(-${dist * rotate >= 90 ? 90 : dist * rotate}deg)`,
+                    zIndex: 10 - dist,
+                    transition: `all ${transTime}s ${transFunc}`,
+                }
+            }
+        }
+        return {
+            opacity: 1,
+            zIndex: 10,
+            filter: "none",
+            WebkitFilter: "none",
+            transform: "none",
+            transition: `all ${transTime / 2}s ${transFunc}`,
+            transitionDelay: `${transTime / 2}s`,
+        }
+    },
     render() {
         return <div className={this.styles.wrapper}>
             <header className={this.styles.header}>
@@ -25,7 +60,9 @@ export default {
                 </h2>
             </header>
             <section className={this.styles.content}>
-                <ItemsList items={this.props.files} index="ROOT"/>
+                {this.props.folders.map((folder, index) =>
+                    <ItemsList items={this.props.files[folder]} index={folder} style={this.views.paneStyle(folder, this.props.focus, this.props.folders)}  backButton={index > 0}/>
+                )}
             </section>
         </div>;
     },

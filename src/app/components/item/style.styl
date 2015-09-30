@@ -18,7 +18,7 @@ marg=10px
     flex 1 1 minw
     min-width minw
     background white
-    box-shadow 0 3px 6px rgba(black, 0.1)
+    box-shadow 0 3px 6px rgba(black, 0.2)
     border-radius 4px
     list-style none
     margin marg
@@ -29,8 +29,17 @@ marg=10px
     color #444
     opacity 0
     transform translateX(50px)
+
+    a, a:link, a:visited, a:active
+        color #aaa
+        text-decoration none
+        transition color 0.5s mdtiming
+        cursor pointer
+        &:hover
+            color #666
+
     &:hover
-        box-shadow 0 6px 12px rgba(black, 0.2)
+        box-shadow 0 6px 12px rgba(black, 0.4)
     &.active
         width 100%
         height s("calc(%s - %s)", hundred, (pad * 2 - topmargin))
@@ -45,40 +54,6 @@ marg=10px
         overflow hidden
         flex 0 0 0
         min-height 0
-    .header, .footer
-        position absolute
-        top 0
-        left 0
-        right 0
-        height headerh
-        line-height headerh
-        text-indent 15px
-        box-shadow 0 2px 4px rgba(black, 0.05)
-        text-transform capitalize
-    .footer
-        box-shadow none
-        top auto
-        bottom 0
-    .smallcontent
-        position absolute
-        top headerh
-        bottom headerh
-        left 0
-        right 0
-        display flex
-        align-items center
-        justify-content center
-    a, a:link, a:visited, a:active
-        color #aaa
-        text-decoration none
-        transition color 0.5s mdtiming
-        &:hover
-            color #666
-    .hint
-        display flex
-        margin 0
-        padding 0
-        font-weight 100
     &.file, &.readme
         .smallcontent
             bottom 0
@@ -93,8 +68,104 @@ marg=10px
             display block
             position static
             margin-top headerh
+            padding 0 10px 10px
             overflow hidden
             .hidden
                 display none
-            .readmeContent
-                padding 15px
+
+.header, .footer
+    position absolute
+    top 0
+    left 0
+    right 0
+    height headerh
+    line-height headerh
+    text-indent 15px
+    box-shadow 0 2px 4px rgba(black, 0.05)
+    text-transform capitalize
+
+.footer
+    box-shadow 0 -2px 4px rgba(black, 0.05)
+    top auto
+    bottom 0
+
+.smallcontent, .bigcontent
+    position absolute
+    top headerh
+    bottom headerh
+    left 0
+    right 0
+    display flex
+    align-items center
+    justify-content center
+
+.readmeContent
+    padding 15px
+
+.bigcontent
+    display block
+    position static
+    margin headerh 0
+    padding 0 10px 10px
+    overflow hidden
+
+.hint
+    display flex
+    margin 0
+    padding 0
+    font-weight 100
+
+.icon
+    fsize=headerh/2
+    height headerh
+    width headerh
+    font-size fsize
+    float right
+    text-indent 0
+    position relative
+    border-radius 100%
+    transition all 0.5s mdtiming
+    &:hover
+        background rgba(black, 0.1)
+    :global .mdi
+        display flex
+        align-items center
+        justify-content center
+        height 100%
+        width 100%
+
+.tooltip
+    clr=rgba(0, 0, 0, 0.8)
+    position absolute
+    right 0
+    min-width 150px
+    font-size 10pt
+    line-height 12pt
+    text-align right
+    color #FFF
+    background-color clr
+    padding 5px
+    bottom 100%
+    transition all 0.5s mdtiming
+    z-index -1
+    opacity 0
+    transform translateY(-10px)
+    border-top-left-radius 4px
+    border-top-right-radius 4px
+    &:before
+        arrsize=5px
+        content ""
+        position absolute
+        width 0
+        padding 0
+        font-size 0px
+        bottom (0 - arrsize)
+        right (headerh/2 - arrsize)
+        border-top solid arrsize clr
+        border-left solid arrsize transparent
+        border-right solid arrsize transparent
+
+&:hover > .tooltip
+    opacity 1
+    transform none
+    z-index 11

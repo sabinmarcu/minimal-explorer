@@ -1,2 +1,2 @@
-import _ from "underscore";
-export default (state, action) => true && { ...state, rawfiles: action.files };
+import _ from "lodash";
+export default (state, action) => true && { ...state, filesMap: action.filesMap, folders: action.folders };

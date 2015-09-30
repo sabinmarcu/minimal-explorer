@@ -1,6 +1,6 @@
 "use strict";
 
-import _ from "underscore";
+import _ from "lodash";
 import jQuery from "jquery";
 import memoize from "./memoize";
 
@@ -74,7 +74,6 @@ class Util {
                 : ""), _action = ctx(set.full), _prefix = set.prefix.toLowerCase();
             prev[_prefix] = prev[_prefix] || {};
             prev[_prefix][_directType] = (...args) => {
-                console.log(_action, ...args, _action(...args), _.extend(_action(...args), {type: _type}));
                 return _.extend(_action(...args), {type: _type});
             }
             return prev;
@@ -94,7 +93,6 @@ class Util {
             const _type = `${set.prefix}:${set.reducer}`, _directType = set.reducer, _reducer = ctx(set.full), _prefix = set.prefix.toLowerCase();
             prev[_prefix] = prev[_prefix] || [];
             prev[_prefix].push((state, action) => {
-                console.log(_type, action.type)
                 if (_directType === "_INIT" || _type === action.type) {
                     return _reducer(state, action);
                 }

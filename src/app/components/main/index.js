@@ -2,13 +2,15 @@ import React from "react";
 import EnhancedComponent from "../baseComponent";
 import { connect }  from "react-redux";
 import Util from "../../helpers/util";
-import _ from "underscore";
+import _ from "lodash";
 import marked from "marked";
 
 @connect((state) => {
     return {
-        files: state.main.rawfiles,
+        files: state.main.filesMap,
+        folders: state.main.folders,
         descriptions: state.main.descriptions,
+        focus: state.main.focus,
     }
 })
 export default class Main extends EnhancedComponent {
@@ -31,13 +33,17 @@ export default class Main extends EnhancedComponent {
             Folders.forEach((it) => {
                 console.log("GETTING DESCRIPTION FOR ", it, Util.suffixSlash(window.location) + Util.suffixSlash(it));
                 Util.getDescription(
-                    (file) => console.log(it, file)
+                    (file) => this.props.dispatch(Util.actions.main.addDescription(marked(file), it))
                 , Util.suffixSlash(window.location) + Util.suffixSlash(it))
             });
         });
         Util.getDescription((file) =>
             this.props.dispatch(Util.actions.main.addDescription(marked(file), "ROOT"))
         );
+    }
+
+    distanceTo(it, target, array) {
+        return array.indexOf(target) >= 0 && array.indexOf(it) >= 0 ? array.indexOf(target) - array.indexOf(it) : null;
     }
 
     constructor(...args) {

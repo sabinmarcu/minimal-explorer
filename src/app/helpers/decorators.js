@@ -2,7 +2,7 @@
 "use strict";
 
 import is from "check-types";
-import _ from "underscore";
+import _ from "lodash";
 
 let uuids = new WeakMap();
 
