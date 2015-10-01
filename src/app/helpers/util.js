@@ -15,10 +15,10 @@ class Util {
     // Can be a lot more useful if they're refractored and abstracted to be used by both actions and reducers
 
     static getFiles(cb) {
-        jQuery.get(__BASEURL__ + "files", cb);
+        jQuery.get(Util.suffixSlash(window.location) + "files", cb);
     }
-    static getDescription(cb, prefix = window.location) {
-        jQuery.get(Util.suffixSlash(prefix) + "readme.md", cb);
+    static getDescription(cb, item = window.location + "/readme.md") {
+        jQuery.get(item, cb);
     }
     static suffixSlash(str) {
         str = str + "";

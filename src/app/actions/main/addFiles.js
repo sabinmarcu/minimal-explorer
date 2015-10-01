@@ -1,7 +1,9 @@
 import check from "check-types";
 import _ from "lodash";
-export default (files) => {
-    let rawfiles = files.split("\n").map((i) => i.length > 0 && i).filter((it) => it);
+import marked from "marked";
+
+export default (obj) => {
+    let {folders, descriptions} = obj;
     let computeFunction = (files) => files.reduce((prev, it) => {
             let s = it.split("/"), f, l = prev;
             while (s.length > 1) {
@@ -15,20 +17,17 @@ export default (files) => {
             }
             return prev;
         }, {});
-    let computedfiles = computeFunction(rawfiles);
-    let folders = [
-        ...rawfiles.reduce((prev, it) =>
-            prev.add(it.substr(0, it.lastIndexOf("/"))) && prev
-        , new Set()),
-    ];
     let filesMap = folders.reduce((acc, folder) =>
-        (acc[folder === "" ? "ROOT" : folder] = folder.split("/").reduce((prev, it) => prev[it] || prev, computeFunction(rawfiles.map((file) =>
+        (acc[folder === "" ? "ROOT" : folder] = folder.split("/").reduce((prev, it) => prev[it] || prev, computeFunction(obj.files.map((file) =>
                 file.match(new RegExp(`^${folder}\/?[^\/]+$`))
             ).map(it => it ? it[0] : undefined).filter(it => it))
         )) && acc
     , {});
     folders = folders.map((it) => it === "" ? "ROOT" : it);
-    return {folders, filesMap};
+    descriptions = Object.keys(descriptions).reduce(
+        (prev, it) => (prev[it] = marked(descriptions[it])) && prev
+    , {});
+    return { folders, filesMap, descriptions };
 };
 
 

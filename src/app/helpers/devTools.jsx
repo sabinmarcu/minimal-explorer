@@ -5,8 +5,6 @@ import { createStore as initialCreateStore, compose } from "redux";
 
 let createStore = initialCreateStore;
 
-console.log("CREATE", createStore);
-
 if (__DEV__) {
     createStore = compose(
         require("redux-devtools").devTools(),
@@ -28,7 +26,5 @@ let renderDevTools = function(store) {
     }
     return null;
 }
-
-console.log("CREATED", createStore)
 
 export default {createStore, renderDevTools};

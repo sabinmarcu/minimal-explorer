@@ -15,14 +15,15 @@ export default {
         ) >= 0;
     },
     getReadme(item) {
-        return this.props.descriptions[`/${this.getPath(item)}`];
+        return this.props.descriptions[Util.suffixSlash(this.getPath(item)) + "readme.md"];
     },
     render() {
         let children = this.props.items && Object.keys(this.props.items).length > 0 && Object.keys(this.props.items).map((item, index) =>
             <Item file={item} content={this.props.items[item]} folder={this.views.isFolder(item)} style={{transitionDelay: index * delay + "ms", opacity: 1, transform: "none"}} readme={this.views.getReadme(item) || null} select={this.select} link={this.link}/>
         );
-        if (children && this.props.index && this.props.descriptions[this.props.index]) {
-            children.unshift(<Item file="Readme" readme={this.props.descriptions[this.props.index]} style={{transitionDelay: "0ms", opacity: 1, transform: "none"}} isPrimeReadme={true} />);
+        let index = this.props.index === "ROOT" ? "" : Util.suffixSlash(this.props.index);
+        if (children && this.props.descriptions[index + "readme.md"]) {
+            children.unshift(<Item file="Readme" readme={this.props.descriptions[index + "readme.md"]} style={{transitionDelay: "0ms", opacity: 1, transform: "none"}} isPrimeReadme={true} />);
         }
         if (this.props.backButton) {
             children.unshift(<div className={this.styles.backButton} onClick={

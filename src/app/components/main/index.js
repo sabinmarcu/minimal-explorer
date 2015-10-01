@@ -4,6 +4,7 @@ import { connect }  from "react-redux";
 import Util from "../../helpers/util";
 import _ from "lodash";
 import marked from "marked";
+import jQuery from "jquery";
 
 @connect((state) => {
     return {
@@ -11,6 +12,7 @@ import marked from "marked";
         folders: state.main.folders,
         descriptions: state.main.descriptions,
         focus: state.main.focus,
+        readmes: state.main.readmes,
     }
 })
 export default class Main extends EnhancedComponent {
@@ -20,25 +22,14 @@ export default class Main extends EnhancedComponent {
         dispatch: React.PropTypes.func.isRequired,
     }
 
+    state = {
+        queue: ["ROOT"],
+    }
+
     componentDidMount() {
-        Util.getFiles((files) => {
-            this.props.dispatch(Util.actions.main.addFiles(files))
-            console.log("Getting Folders");
-            let Folders = new Set();
-            files.split("\n").map(
-                (it) => it.split("/").filter((it, i, a) => i < a.length - 1 ? it : undefined).reduce(
-                    (p, i) => (i.indexOf(".") < 0 && Folders.add(p + "/" + i) && p + "/" + i) || p
-                , "")
-            );
-            Folders.forEach((it) => {
-                console.log("GETTING DESCRIPTION FOR ", it, Util.suffixSlash(window.location) + Util.suffixSlash(it));
-                Util.getDescription(
-                    (file) => this.props.dispatch(Util.actions.main.addDescription(marked(file), it))
-                , Util.suffixSlash(window.location) + Util.suffixSlash(it))
-            });
-        });
-        Util.getDescription((file) =>
-            this.props.dispatch(Util.actions.main.addDescription(marked(file), "ROOT"))
+        jQuery.getJSON(
+            Util.suffixSlash(window.location) + "config.json",
+            data => this.props.dispatch(Util.actions.main.addFiles(data))
         );
     }
 

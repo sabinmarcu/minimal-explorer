@@ -10,8 +10,8 @@ export default {
         if (dist < 0) {
             return {
                 opacity: 0,
-                filter: "10px",
-                WebkitFilter: "10px",
+                filter: "none",
+                WebkitFilter: "none",
                 transform: `translateZ(${translate}px) rotateX(${rotate}deg)`,
                 zIndex: -1,
                 transition: `all ${transTime}s ${transFunc}`,
@@ -39,6 +39,11 @@ export default {
         }
     },
     render() {
+        let activeIndex = this.props.folders.indexOf(this.props.focus), min = activeIndex - 3 >= 0 ? activeIndex - 3 : 0, max = activeIndex + 1 < this.props.folders.length ? activeIndex + 1 : this.props.folders.length - 1, children = [];
+        for (let i = min; i <= max; i++) {
+            let folder = this.props.folders[i];
+            children.push(<ItemsList items={this.props.files[folder]} index={folder} style={this.views.paneStyle(folder, this.props.focus, this.props.folders)} backButton={i > 0}/>)
+        }
         return <div className={this.styles.wrapper}>
             <header className={this.styles.header}>
                 <h1>{__NAME__}</h1>
@@ -60,9 +65,7 @@ export default {
                 </h2>
             </header>
             <section className={this.styles.content}>
-                {this.props.folders.map((folder, index) =>
-                    <ItemsList items={this.props.files[folder]} index={folder} style={this.views.paneStyle(folder, this.props.focus, this.props.folders)}  backButton={index > 0}/>
-                )}
+                {children}
             </section>
         </div>;
     },
