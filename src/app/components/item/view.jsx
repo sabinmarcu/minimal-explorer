@@ -33,7 +33,7 @@ export default class Views {
         return <h1 className={this.styles.hint}>This is a folder. Use the buttons on the bottom of this card to access its content</h1>;
     }
     static get readmeIcon() {
-        return this.views.icon("file-find", this.props.expand || function() {}, "View Readme");
+        return this.views.icon("file-find", this.props.expandReadme || function() {}, "View Readme");
     }
     static get navigateIcon() {
         return this.views.icon("view-list", this.props.select || function() {}, "View folder contents");

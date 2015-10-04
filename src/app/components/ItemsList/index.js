@@ -22,12 +22,18 @@ export default class ItemsList extends EnhancedComponent {
     }
 
     @selfbind
-    select(item, compose = true) {
-        this.props.dispatch(
-            actions.main.changeFocus(
-                compose ? this.getPath(item) : (item === "" ? "ROOT": item)
-            )
-        );
+    goBack(where) {
+        this.props.dequeue();
+    }
+
+    @selfbind
+    select(item) {
+        this.props.queue(this.getPath(item));
+    }
+
+    @selfbind
+    expandReadme(item) {
+        this.props.queue(this.getPath(item) + "/readme.md");
     }
 
     @selfbind

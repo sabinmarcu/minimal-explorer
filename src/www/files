@@ -1,7 +1,9 @@
 chrome
 chrome/bootstrap.js
 chrome/chrome.js
+chrome/config.json
 chrome/icons
+chrome/icons/config.json
 chrome/icons/fullscreen-exit.png
 chrome/icons/fullscreen.png
 chrome/icons/index.html
@@ -10,8 +12,9 @@ chrome/icons/window-maximize.png
 chrome/icons/window-minimize.png
 chrome/icons/window-restore.png
 chrome/index.html
+chrome/preview.png
 chrome/readme.md
-crawl.js
+config.json
 index.html
 main.css
 manifest.json

@@ -14,22 +14,37 @@ export default {
             this.getPath(item)
         ) >= 0;
     },
-    getReadme(item) {
-        return this.props.descriptions[Util.suffixSlash(this.getPath(item)) + "readme.md"];
+    getReadme(item, limit = this.props.limit, isRoot = false) {
+        let cond = (!isRoot ? Util.suffixSlash(this.getPath(item)) : (item === "" ? item : Util.suffixSlash(item))) + "readme.md";
+        console.log("DESCR", item, cond)
+        let descr = this.props.descriptions[cond];
+        if (check.string(descr)) {
+            if ((limit || -1) >= 0) {
+                return descr.match(new RegExp(`^((?:\<[^>]+\>[^\<]*\<\/[^>]+\>[^<]*){${limit}}).*`), "$1")[1];
+            }
+            return descr;
+        }
+        return null;
     },
     render() {
         let children = this.props.items && Object.keys(this.props.items).length > 0 && Object.keys(this.props.items).map((item, index) =>
-            <Item file={item} content={this.props.items[item]} folder={this.views.isFolder(item)} style={{transitionDelay: index * delay + "ms", opacity: 1, transform: "none"}} readme={this.views.getReadme(item) || null} select={this.select} link={this.link}/>
-        );
+            <Item
+                file={item}
+                content={this.props.items[item]}
+                folder={this.views.isFolder(item)}
+                style={{transitionDelay: index * delay + "ms", opacity: 1, transform: "none"}}
+                readme={this.views.getReadme(item) || null}
+                select={this.select}
+                expandReadme={this.expandReadme}
+                link={this.link} />
+        ) || [];
         let index = this.props.index === "ROOT" ? "" : Util.suffixSlash(this.props.index);
         if (children && this.props.descriptions[index + "readme.md"]) {
-            children.unshift(<Item file="Readme" readme={this.props.descriptions[index + "readme.md"]} style={{transitionDelay: "0ms", opacity: 1, transform: "none"}} isPrimeReadme={true} />);
+            children.unshift(<Item file="Readme" readme={this.views.getReadme(index, -1, true)} style={{transitionDelay: "0ms", opacity: 1, transform: "none"}} isPrimeReadme={true} />);
         }
         if (this.props.backButton) {
             children.unshift(<div className={this.styles.backButton} onClick={
-                () => this.select(
-                    this.props.index.substr(0, this.props.index.lastIndexOf("/"))
-                , false)
+                () => this.props.dequeue()
             }><span className={"mdi mdi-chevron-left"} /><Ink /></div>)
         }
         return <span id="wrapper" className={this.styles.list} style={this.props.style || {}}>

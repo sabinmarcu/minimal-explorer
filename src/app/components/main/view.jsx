@@ -39,10 +39,14 @@ export default {
         }
     },
     render() {
-        let activeIndex = this.props.folders.indexOf(this.props.focus), min = activeIndex - 3 >= 0 ? activeIndex - 3 : 0, max = activeIndex + 1 < this.props.folders.length ? activeIndex + 1 : this.props.folders.length - 1, children = [];
+        let activeIndex = this.props.queue.indexOf(this.props.focus), min = activeIndex - 3 >= 0 ? activeIndex - 3 : 0, max = activeIndex + 1 < this.props.queue.length ? activeIndex + 1 : this.props.queue.length - 1, children = [];
         for (let i = min; i <= max; i++) {
-            let folder = this.props.folders[i];
-            children.push(<ItemsList items={this.props.files[folder]} index={folder} style={this.views.paneStyle(folder, this.props.focus, this.props.folders)} backButton={i > 0}/>)
+            let folder = this.props.queue[i];
+            if (folder.indexOf(".") < 0) {
+                children.push(<ItemsList items={this.props.files[folder]} index={folder} style={this.views.paneStyle(folder, this.props.focus, this.props.queue)} backButton={i > 0} queue={this.queue} dequeue={this.dequeue} limit={2}/>)
+            } else {
+                children.push(<ItemsList items={[]} index={folder.substr(0, folder.lastIndexOf("/"))} style={this.views.paneStyle(folder, this.props.focus, this.props.queue)} backButton={i > 0} queue={this.queue} dequeue={this.dequeue} limit={1}/>);
+            }
         }
         return <div className={this.styles.wrapper}>
             <header className={this.styles.header}>

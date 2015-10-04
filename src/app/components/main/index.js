@@ -2,6 +2,7 @@ import React from "react";
 import EnhancedComponent from "../baseComponent";
 import { connect }  from "react-redux";
 import Util from "../../helpers/util";
+import { selfbind } from "../../helpers/decorators";
 import _ from "lodash";
 import marked from "marked";
 import jQuery from "jquery";
@@ -13,6 +14,7 @@ import jQuery from "jquery";
         descriptions: state.main.descriptions,
         focus: state.main.focus,
         readmes: state.main.readmes,
+        queue: state.main.queue,
     }
 })
 export default class Main extends EnhancedComponent {
@@ -20,10 +22,6 @@ export default class Main extends EnhancedComponent {
     static propTypes = {
         files: React.PropTypes.array.isRequired,
         dispatch: React.PropTypes.func.isRequired,
-    }
-
-    state = {
-        queue: ["ROOT"],
     }
 
     componentDidMount() {
@@ -35,6 +33,24 @@ export default class Main extends EnhancedComponent {
 
     distanceTo(it, target, array) {
         return array.indexOf(target) >= 0 && array.indexOf(it) >= 0 ? array.indexOf(target) - array.indexOf(it) : null;
+    }
+
+    @selfbind
+    queue(item) {
+        this.props.dispatch(
+            Util.actions.main.queueView(item, () =>
+                this.props.dispatch(
+                    Util.actions.main.changeFocus(item)
+                )
+            )
+        );
+    }
+
+    @selfbind
+    dequeue() {
+        this.props.dispatch(
+            Util.actions.main.dequeueView()
+        )
     }
 
     constructor(...args) {

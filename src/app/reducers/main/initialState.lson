@@ -4,5 +4,6 @@
     "descriptions": {
         "ROOT": "> This is simply a directory listing for this current folder."
     },
+    "queue": [ "ROOT" ],
     "focus": "ROOT"
 }
