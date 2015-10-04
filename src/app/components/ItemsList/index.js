@@ -18,6 +18,10 @@ export default class ItemsList extends EnhancedComponent {
         dispatch: React.PropTypes.func.isRequired,
     }
 
+    state = {
+        finalStyles: {},
+    }
+
     getPath(item) {
         return `${this.props.index === "ROOT" ? "" : `${this.props.index}/`}${item}`
     }
@@ -41,6 +45,12 @@ export default class ItemsList extends EnhancedComponent {
     link(item) {
         let l = window.location + "";
         window.location = (l[l.length - 1] === "/" ? l : l + "/") + this.getPath(item);
+    }
+
+    componentDidMount() {
+        setTimeout(
+            () => this.setState({finalStyles: {transform: "none", opacity: 1}})
+        , 500);
     }
 
     constructor(...args) {

@@ -19,7 +19,8 @@ export default {
         let descr = this.props.descriptions[cond];
         if (check.string(descr)) {
             if ((limit || -1) >= 0) {
-                return descr.match(new RegExp(`^((?:\<[^>]+\>[^\<]*\<\/[^>]+\>[^<]*){${limit}}).*`), "$1")[1];
+                // return descr.match(new RegExp(`^((?:\<[^>]+\>[^\<]*\<\/[^>]+\>[^<]*){${limit}}).*`), "$1")[1];
+                return descr.substr(0, (descr.indexOf("<!--limit-->") >= 0 ? descr.indexOf("<!--limit-->") : descr.length - 1));
             }
             return descr;
         }
@@ -40,7 +41,7 @@ export default {
                 file={item}
                 content={this.props.items[item]}
                 folder={this.views.isFolder(item)}
-                style={{transitionDelay: index * delay + "ms", opacity: 1, transform: "none"}}
+                style={{transitionDelay: delay + index * delay + "ms", ...this.state.finalStyles}}
                 readme={this.views.getReadme(item) || null}
                 select={this.select}
                 expandReadme={this.expandReadme}
@@ -49,10 +50,10 @@ export default {
         ) || [];
         let index = this.props.index === "ROOT" ? "" : Util.suffixSlash(this.props.index);
         if (children && this.props.descriptions[index + "readme.md"]) {
-            children.unshift(<Item file="Readme" readme={this.views.getReadme(index, (this.props.index === "ROOT" || this.props.displayPreview ? -1 : 2), true)} style={{transitionDelay: "0ms", opacity: 1, transform: "none", maxWidth: (this.props.displayPreview ? "800px" : "initial")}} isPrimeReadme={true}/>);
+            children.unshift(<Item file="Readme" readme={this.views.getReadme(index, (this.props.index === "ROOT" || this.props.displayPreview ? -1 : 2), true)} style={{transitionDelay: "0ms", maxWidth: (this.props.displayPreview ? "800px" : "initial"), ...this.state.finalStyles}} isPrimeReadme={true}/>);
         }
-        if (this.props.displayPreview) {
-            children.unshift(<Item previewImage={this.views.getPreview(this.props.index, true)} isOnlyPreview={true}  style={{transitionDelay: index * delay + "ms", opacity: 1, transform: "none", flex: "2 2 500px"}} />);
+        if (this.props.displayPreview && check.string(this.views.getPreview(this.props.index, true))) {
+            children.unshift(<Item previewImage={this.views.getPreview(this.props.index, true)} isOnlyPreview={true}  style={{transitionDelay: delay + "ms", flex: "2 2 500px", ...this.state.finalStyles}} />);
         }
         if (this.props.backButton) {
             children.unshift(<div className={this.styles.backButton} onClick={

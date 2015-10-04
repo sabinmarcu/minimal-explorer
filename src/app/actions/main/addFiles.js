@@ -12,7 +12,7 @@ export default (obj) => {
                 l = l[n];
             }
             f = s[0];
-            if (!_.contains(["index.html", "bootstrap.js", "app.js", "readme.md", "files", "config.js", "preview.png", "preview.jpg"], f)) {
+            if (!_.contains(["index.html", "bootstrap.js", "app.js", "readme.md", "files", "config.json", "preview.png", "preview.jpg"], f)) {
                 l[f] = l[f] || (f.indexOf(".") >= 0 && f.substr(0, f.lastIndexOf(".")) || f);
             }
             return prev;
