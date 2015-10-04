@@ -45,7 +45,7 @@ export default {
             if (folder.indexOf(".") < 0) {
                 children.push(<ItemsList items={this.props.files[folder]} index={folder} style={this.views.paneStyle(folder, this.props.focus, this.props.queue)} backButton={i > 0} queue={this.queue} dequeue={this.dequeue} limit={2}/>)
             } else {
-                children.push(<ItemsList items={[]} index={folder.substr(0, folder.lastIndexOf("/"))} style={this.views.paneStyle(folder, this.props.focus, this.props.queue)} backButton={i > 0} queue={this.queue} dequeue={this.dequeue} limit={1}/>);
+                children.push(<ItemsList items={[]} index={folder.substr(0, folder.lastIndexOf("/"))} style={this.views.paneStyle(folder, this.props.focus, this.props.queue)} backButton={i > 0} queue={this.queue} dequeue={this.dequeue} limit={-1} displayPreview={true}/>);
             }
         }
         return <div className={this.styles.wrapper}>

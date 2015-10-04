@@ -7,6 +7,7 @@ import { actions } from "../../helpers/util";
 @connect((state) => {
     return {
         descriptions: state.main.descriptions,
+        previews: state.main.previews,
         folders: state.main.folders,
     }
 })

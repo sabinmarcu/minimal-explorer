@@ -44,9 +44,20 @@ export default class Views {
 
     // Partials
     static sectionContent(inner, file = true) {
-        return <section className={file ? this.styles.smallcontent : this.styles.bigcontent}>
-            {inner}
+        return <section className={[(file ? this.styles.smallcontent : this.styles.bigcontent), (this.props.previewImage && this.styles.previewImageContainer), (this.props.isOnlyPreview && this.styles.imagePreviewContainer)].join(" ")}>
+            {check.string(this.props.previewImage) ? this.views.imageSectionContent(inner) : inner}
         </section>;
+    }
+    static imageSectionContent(inner) {
+        return <aside className={this.styles.previewImage}>
+            <img src={this.props.previewImage} />
+            <footer className={this.styles.previewImageContent}>
+                <header className={this.styles.previewImageQuote}>
+                    <span className="mdi mdi-format-quote" />
+                </header>
+                {inner}
+            </footer>
+        </aside>;
     }
     static headerContent(inner) {
         return <header className={this.styles.header}>
@@ -101,9 +112,12 @@ export default class Views {
             ]),
         ];
     }
+    static get imagePreviewLayout() {
+        return this.views.sectionContent(<span />);
+    }
     static get layout() {
         return <li className={this.views.classes} style={this.props.style || {}}>
-            {this.props.folder ? this.views.bigLayout : this.views.smallLayout}
+            {this.props.isOnlyPreview ? this.views.imagePreviewLayout : this.props.folder ? this.views.bigLayout : this.views.smallLayout}
         </li>;
     }
 

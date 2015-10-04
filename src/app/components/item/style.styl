@@ -171,3 +171,52 @@ marg=10px
     opacity 1
     transform none
     z-index 11
+
+.previewImage
+    display: block;
+    width: calc(100% + 20px);
+    margin: 0 -10px -10px;
+    position: relative;
+    overflow: hidden;
+    img
+        width: 100%;
+        margin: 0;
+        padding: 0;
+
+.previewImageQuote
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 45px;
+    width: 45px;
+    font-size: 24pt;
+    text-shadow: 0 0 7px rgba(255, 255, 255, 0.4);
+    font-weight: 100;
+
+.previewImageContent
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 10px 10px;
+    background-color: rgba(black, 0.8);
+    color: rgba(white, 0.4);
+    transition: all 0.5s mdtiming;
+    transform: translateY(calc(100% - 60px));
+    &:after
+        font-family
+    &:hover
+        transform none
+        color: white;
+
+.imagePreviewContainer
+    display block
+    position relative
+    top: auto;
+    bottom: auto;
+    padding: 0 10px 10px;
+    background-color: #000;
+    max-height 200px
+    transition all 3s mdtiming
+    &:hover
+        max-height 1000px

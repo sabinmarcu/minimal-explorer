@@ -3,7 +3,7 @@ import _ from "lodash";
 import marked from "marked";
 
 export default (obj) => {
-    let {folders, descriptions} = obj;
+    let {folders, descriptions, previews} = obj;
     let computeFunction = (files) => files.reduce((prev, it) => {
             let s = it.split("/"), f, l = prev;
             while (s.length > 1) {
@@ -12,7 +12,7 @@ export default (obj) => {
                 l = l[n];
             }
             f = s[0];
-            if (!_.contains(["index.html", "bootstrap.js", "app.js", "readme.md"], f)) {
+            if (!_.contains(["index.html", "bootstrap.js", "app.js", "readme.md", "files", "config.js", "preview.png", "preview.jpg"], f)) {
                 l[f] = l[f] || (f.indexOf(".") >= 0 && f.substr(0, f.lastIndexOf(".")) || f);
             }
             return prev;
@@ -27,7 +27,7 @@ export default (obj) => {
     descriptions = Object.keys(descriptions).reduce(
         (prev, it) => (prev[it] = marked(descriptions[it])) && prev
     , {});
-    return { folders, filesMap, descriptions };
+    return { folders, filesMap, descriptions, previews };
 };
 
 
