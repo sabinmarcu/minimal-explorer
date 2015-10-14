@@ -1,1 +1,2 @@
-module.exports = (state = require("./initialState"), action) -> state
+_ = require "lodash"
+module.exports = (state = require("./initialState"), action) -> _.clone(state)

@@ -15,6 +15,7 @@ import jQuery from "jquery";
         focus: state.main.focus,
         readmes: state.main.readmes,
         queue: state.main.queue,
+        previews: state.main.previews,
     }
 })
 export default class Main extends EnhancedComponent {

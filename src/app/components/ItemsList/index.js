@@ -2,13 +2,16 @@ import React from "react";
 import EnhancedComponent from "../baseComponent";
 import { connect }  from "react-redux";
 import { selfbind } from "../../helpers/decorators";
-import { actions } from "../../helpers/util";
+import Util from "../../helpers/util";
+
+import check from "check-types";
+import jQuery from "jquery";
 
 @connect((state) => {
     return {
         descriptions: state.main.descriptions,
-        previews: state.main.previews,
         folders: state.main.folders,
+        previews: state.main.previews,
     }
 })
 export default class ItemsList extends EnhancedComponent {
@@ -51,7 +54,26 @@ export default class ItemsList extends EnhancedComponent {
         setTimeout(
             () => this.setState({finalStyles: {transform: "none", opacity: 1}})
         , 500);
+        // this._check();
     }
+
+    // componentDidUpdate() {
+    //     this._check();
+    // }
+
+    // _check() {
+    //     console.log("Going to check", this.props.items && Object.keys(this.props.items));
+    //     this.props.items && Object.keys(this.props.items).map(item => {
+    //         console.log(`Checking ${this.getPath(item)} (${Util.suffixSlash(this.getPath(item))}preview.png)`, this.props.previews);
+    //         return ! check.string(this.props.previews[
+    //             this.getPath(item)
+    //         ]) && jQuery.get(
+    //             Util.suffixSlash(this.getPath(item)) + "preview.png"
+    //         ).done( () => this.props.dispatch(
+    //             Util.actions.main.approvePreview( this.getPath(item) )
+    //         ))
+    //     });
+    // }
 
     constructor(...args) {
         super(require, ...args);

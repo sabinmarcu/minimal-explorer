@@ -28,10 +28,9 @@ export default {
     },
     getPreview(item, isRoot = false) {
         let cond = (!isRoot ? this.getPath(item) : (item === "" ? item : item));
-        console.log("COND", item, isRoot, cond);
-        let prev = this.props.previews[cond];
+        let prev = this.props.previews[this.getPath(item)];
         if (check.string(prev)) {
-            return prev;
+            return Util.suffixSlash(this.getPath(item)) + prev;
         }
         return null;
     },

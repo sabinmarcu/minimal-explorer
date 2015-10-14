@@ -1,11 +1,13 @@
 (function () {
     'use strict';
 
+    console.timeStamp("Start");
+
     require("babel/polyfill");
-    require("!!style!css?-modules!mdi/css/materialdesignicons.css");
+    // require("!!style!css?-modules!mdi/css/materialdesignicons.css");
 
     let React = require('react/addons');
-    let injectTapEventPlugin = require('react-tap-event-plugin');
+    // let injectTapEventPlugin = require('react-tap-event-plugin');
     let Main = require('./components/main');
 
     let {renderDevTools, createStore} = require("./helpers/devTools");
@@ -20,7 +22,9 @@
     }
 
     // Material-UI requirement
-    injectTapEventPlugin();
+    // injectTapEventPlugin();
+
+    console.timeStamp("Required intial stuff");
 
     // Load Reducers
     let ctx = require.context('./reducers/', true, /\.\/?(.*)\/((?:_init|[^\/]+\.reducer)\.(?:js|jsx|ls))$/gm);
@@ -29,6 +33,8 @@
     // Create the Redux store
     const reducer = combineReducers( reducers );
     const store = createStore(reducer);
+
+    console.timeStamp("Loaded reducers");
 
 
     let meta;
@@ -67,7 +73,15 @@
     meta.setAttribute("href", "icon.ico");
     document.head.appendChild(meta);
 
+    // Load MDI from a CDN (lower app size)
+    meta = document.createElement("link");
+    meta.setAttribute("href", "https://cdn.materialdesignicons.com/1.1.34/css/materialdesignicons.min.css");
+    meta.setAttribute("rel", "stylesheet");
+    document.head.appendChild(meta);
+
     document.title = __NAME__;
+
+    console.timeStamp("Set meta tags and title");
 
     // Mount the app and dev tools
     React.render(
@@ -78,5 +92,7 @@
             {renderDevTools(store)}
         </div>)
     , document.body);
+
+    console.timeStamp("Done Rendering");
 
 })();
