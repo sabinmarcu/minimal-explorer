@@ -10,26 +10,35 @@ export default class ImageLoader extends EnhancedComponent {
         loaded: false,
         height: 0,
         width: 0,
+        containerHeight: 0,
+        containerWidth: 0,
     }
 
     constructor(...args) {
         super(require, ...args);
-        // let e = document.querySelector("#line-scale-spinner");
-        // if (!e) {
-        //     e = document.createElement("link");
-        //     e.setAttribute("href", "https://raw.githubusercontent.com/danielcardoso/load-awesome/master/css/line-scale.min.css");
-        //     e.setAttribute("id", "line-scale-spinner");
-        //     e.setAttribute("rel", "stylesheet");
-        //     document.head.appendChild(e);
-        // }
     }
+
+    // componentDidMount() {
+    //     window.addEventListener("resize", this.resizeHandler);
+    //     this.resizeHandler();
+    // }
 
     @selfbind
     loadHandler(event) {
-        this.setState({height: event.target.height, width: event.target.width});
+        // this.setState({height: event.target.height, width: event.target.width});
         setTimeout(() => {
             this.setState({loaded: true});
             this.props.loadHandler && this.props.loadHandler();
         }, 500);
     }
+
+    // resizeHandler() {
+    //     let node = React.findDOMNode(this.refs.placeholder);
+    //     node.style.width = "100%";
+    //     node.style.height = "100%";
+    //     this.setState({
+    //         containerHeight: node.offsetHeight, 
+    //         containerWidth: node.offsetWidth,
+    //     });
+    // }
 }

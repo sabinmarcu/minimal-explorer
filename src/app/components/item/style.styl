@@ -4,7 +4,9 @@
 topmargin=30px
 listmargin=topmargin 10px 0
 headerh=35px
-minw=250px
+minw=350px
+thirty=33%
+half=50%
 marg=10px
 
 .biglink
@@ -14,10 +16,17 @@ marg=10px
     left 0
     right 0
     z-index 10
+    
+&:global(.device-lt700) .item
+    flex 1 1 s("calc(%s - %s)", hundred, marg * 2) !important
+    width s("calc(%s - %s)", hundred, marg * 2) !important
+    
+&:global(.device-phone) .item
+    min-width (minw / 2) !important
 
 .item
-    pad=25px
-    flex 1 1 minw
+    flex 1 1 s("calc(%s - %s)", thirty, marg * 2)
+    width s("calc(%s - %s)", thirty, marg * 2)
     min-width minw
     background white
     box-shadow 0 3px 6px rgba(black, 0.2)
@@ -45,7 +54,7 @@ marg=10px
         box-shadow 0 6px 12px rgba(black, 0.4)
     &.active
         width 100%
-        height s("calc(%s - %s)", hundred, (pad * 2 - topmargin))
+        height s("calc(%s - %s)", hundred, (marg * 2 - topmargin))
         max-width initial
         margin -30px -10px 0
         flex 2 2 100%
@@ -66,7 +75,8 @@ marg=10px
         &:hover
             color #666
     &.readme
-        flex 2 2 (minw * 2 + marg * 2)
+        flex 2 2 s("calc(%s - %s)", half, marg * 2)
+        width s("calc(%s - %s)", half, marg * 2)
         .smallcontent
             display block
             position static
@@ -76,7 +86,8 @@ marg=10px
             .hidden
                 display none
     &.primereadme
-        flex 3 3 (minw * 4 + marg * 4)
+        flex 3 3 s("calc(%s - %s)", thirty * 2, marg * 2)
+        width s("calc(%s - %s)", thirty * 2, marg * 2)
 
 .header, .footer
     position absolute
@@ -144,7 +155,7 @@ marg=10px
     clr=rgba(0, 0, 0, 0.8)
     position absolute
     right 0
-    min-width 150px
+    width 150px
     font-size 10pt
     line-height 12pt
     text-align right

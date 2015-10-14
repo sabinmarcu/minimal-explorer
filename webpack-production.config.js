@@ -22,7 +22,8 @@ var config = {
     //Config options on how to interpret requires imports
     resolve: {
         extensions: ["", ".js", ".jsx", ".css", ".styl", ".ls", ".lson"],
-        //node_modules: ["web_modules", "node_modules"]    (Default Settings)
+        node_modules: ["web_modules", "node_modules", "bower_components"],
+        root: [path.join(__dirname, "bower_components"), path.join(__dirname, "node_modules")],
     },
     //Server Configuration options
     output: {

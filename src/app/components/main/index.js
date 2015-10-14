@@ -25,11 +25,16 @@ export default class Main extends EnhancedComponent {
         dispatch: React.PropTypes.func.isRequired,
     }
 
+    state = {
+        width: window.innerWidth,
+    }
+
     componentDidMount() {
         jQuery.getJSON(
             Util.suffixSlash(window.location) + "config.json",
             data => this.props.dispatch(Util.actions.main.addFiles(data))
         );
+        window.addEventListener("resize", () => this.setState({width: window.innerWidth}) );
     }
 
     distanceTo(it, target, array) {

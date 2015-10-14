@@ -23,6 +23,7 @@
     "check-types": "^3.3.1",
     "css-loader": "^0.16.0",
     "file-loader": "^0.8.4",
+    "ismobilejs": "^0.3.9",
     "jquery": "^2.1.4",
     "livescript-loader": "^0.1.5",
     "lodash": "^3.10.1",
