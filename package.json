@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "babel": "^5.8.23",
+    "bower-webpack-plugin": "^0.1.9",
     "check-types": "^3.3.1",
     "css-loader": "^0.16.0",
     "file-loader": "^0.8.4",

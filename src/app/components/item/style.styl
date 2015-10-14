@@ -105,6 +105,7 @@ marg=10px
     justify-content center
     align-self stretch
     height auto
+    width 100%
 
 .readmeContent
     padding 15px
@@ -209,12 +210,24 @@ marg=10px
     background-color: rgba(black, 0.8);
     color: rgba(white, 0.4);
     transition: all 0.5s mdtiming;
-    transform: translateY(calc(100% - 60px));
+    opacity 0
+    z-index -1
+    transform: translateY(100%)
+    
+    max-height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    
     &:after
         font-family
-    &:hover
+    &:hover, &.active:hover
         transform none
         color: white;
+    &.active
+        transform: translateY(calc(100% - 60px));
+        opacity 1
+        z-index 1
 
 .imagePreviewContainer
     display block

@@ -3,6 +3,7 @@ import check from "check-types";
 import Util from "../../helpers/util";
 import marked from "marked";
 import Ink from "react-ink";
+import ImageLoader from "../imageloader";
 
 export default class Views {
 
@@ -50,8 +51,8 @@ export default class Views {
     }
     static imageSectionContent(inner) {
         return <aside className={this.styles.previewImage}>
-            <img src={this.props.previewImage} />
-            <footer className={this.styles.previewImageContent}>
+            <ImageLoader src={this.props.previewImage} loadHandler={this.previewLoadHandler} />
+            <footer className={this.styles.previewImageContent + " " + (this.state.previewLoaded && this.styles.active)}>
                 <header className={this.styles.previewImageQuote}>
                     <span className="mdi mdi-format-quote" />
                 </header>
