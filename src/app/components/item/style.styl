@@ -225,10 +225,10 @@ marg=10px
     z-index -1
     transform: translateY(100%)
     
+    overflow auto
+
     max-height: 100%;
     max-width: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     
     &:after
@@ -240,6 +240,18 @@ marg=10px
         transform: translateY(calc(100% - 60px));
         opacity 1
         z-index 1
+        
+    &::-webkit-scrollbar-track {
+        background rgba(white, 0.2)
+    }
+     
+    &::-webkit-scrollbar-thumb {
+        background rgba(white, 0.4)
+    }
+        
+:global(.apple) .previewImageContent
+    overflow-x: hidden;
+    overflow-y: scroll;
 
 .imagePreviewContainer
     display block
